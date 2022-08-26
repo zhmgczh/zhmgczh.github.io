@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="keywords" content="淨土宗念佛">
+<meta name="description" content="淨土宗念佛在線修習，提供念佛倒數計數服務。">
+<meta http-equiv='content-language' content='zh-TW'>
+<meta name="google-site-verification" content="V8eLvycwzTe1HcbvKdvVIk2wZUeosaT7HCXcbPB6N0Y" />
+<title>淨土宗念佛在線修習</title>
+<style>
+    @font-face
+    {
+        font-family:"GB Pinyinok-C";
+        src:url("fonts/GB Pinyinok-C.ttf");
+        font-weight:normal;
+        font-style:normal;
+    }
+    @font-face
+    {
+        font-family:"PMingLiU";
+        src:url("fonts/PMingLiU.ttf");
+        font-weight:normal;
+        font-style:normal;
+    }
+    p
+    {
+        font-family:"PMingLiU";
+        font-size:20px;
+    }
+    h1
+    {
+        font-family:"PMingLiU";
+        font-size:40px;
+    }
+    h2
+    {
+        font-family:"PMingLiU";
+        font-size:20px;
+    }
+    button
+    {
+        font-family:"PMingLiU";
+        font-size:30px;;
+    }
+    rt
+    {
+        font-family:"GB Pinyinok-C";
+    }
+    ruby
+    {
+        font-family:"PMingLiU";
+    }
+</style>
+<!-- <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Jdy4fuyomxQqAw3y",ck: "Jdy4fuyomxQqAw3y"})</script> -->
+</head>
+<body style="background-image: url(imgs/背景.jpg);background-repeat:repeat;position:relative;text-align:center;overflow:hidden">
+<div id="top_content">
+<h1><ruby>南<rt>ná</rt></ruby><ruby>無<rt>mó</rt></ruby><ruby>阿<rt>ē</rt></ruby><ruby>彌<rt>mí</rt></ruby><ruby>陀<rt>tuó</rt></ruby><ruby>佛<rt>fó</rt></ruby></h1>
+<input type="text" id="times" value="1000" style="text-align:center" oninput="value=value.replace(/[^\d]/g,'')">
+</div>
+<button id="read" onclick="count_down();">念誦一遍</br>（空格、回車或↓）</button>
+<audio id="countdown_audio" preload="auto" src="audios/countdown.mp3"></audio>
+<audio id="finish_chan_audio" preload="auto" src="audios/finish_chan.mp3"></audio>
+<audio id="finish_audio" preload="auto" src="audios/finish.mp3"></audio>
+<script>
+    function isNaN(n)
+    {
+        return n!==n;
+    }
+    var read_button=document.getElementById('read');
+    function audio_ended()
+    {
+        read_button.removeAttribute('disabled');
+    }
+    function count_down()
+    {
+        var times=document.getElementById('times');
+        var times_value=isNaN(parseInt(times.value))?0:parseInt(times.value);
+        var audio=document.getElementById('countdown_audio');
+        if(0>=times.value)
+        {
+            audio=document.getElementById('finish_audio');
+            times.value=0;
+        }
+        else if(1==times.value)
+        {
+            audio=document.getElementById('finish_chan_audio');
+            times.value-=1;
+        }
+        else
+        {
+            times.value-=1;
+        }
+        audio.addEventListener('ended',audio_ended);
+        read_button.disabled='disabled';
+        audio.play();
+    }
+    function keydown_function()
+    {
+        if(event.keyCode==13||event.keyCode==32||event.keyCode==40)
+        {
+            read_button.onclick();
+        }
+    }
+    document.onkeydown=function(){keydown_function()}
+    function get_height()
+    {
+        return self.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
+    }
+    function get_width()
+    {
+        return document.getElementById('top_content').getClientRects()['0']['width'];
+    }
+    read_button.style.width=get_width()+'px';
+    read_button.style.height=(get_height()-document.getElementById('top_content').getClientRects()['0']['height'])+'px';
+</script>
+</body>
+</html>
