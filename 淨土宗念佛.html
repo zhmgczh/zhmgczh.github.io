@@ -69,15 +69,16 @@
         return n!==n;
     }
     var read_button=document.getElementById('read');
+    var audio=document.getElementById('countdown_audio');
     function audio_ended()
     {
+        audio.load();
         read_button.removeAttribute('disabled');
     }
     function count_down()
     {
         var times=document.getElementById('times');
         var times_value=isNaN(parseInt(times.value))?0:parseInt(times.value);
-        var audio=document.getElementById('countdown_audio');
         if(0>=times.value)
         {
             audio=document.getElementById('finish_audio');
@@ -90,6 +91,7 @@
         }
         else
         {
+            audio=document.getElementById('countdown_audio');
             times.value-=1;
         }
         audio.addEventListener('ended',audio_ended);
