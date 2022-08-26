@@ -66,6 +66,27 @@
 <audio id="finish_chan_audio" preload="auto" src="audios/finish_chan.mp3"></audio>
 <audio id="finish_audio" preload="auto" src="audios/finish.mp3"></audio>
 <script>
+    function setCookie(cname,cvalue,exdays)
+    {
+        var d=new Date();
+        d.setTime(d.getTime()+(exdays*24*60*60*1000));
+        var expires="expires="+d.toGMTString();
+        document.cookie=cname+"="+cvalue+"; "+expires;
+    }
+    function getCookie(cname)
+    {
+        var name=cname+"=";
+        var ca=document.cookie.split(';');
+        for(var i=0;i<ca.length;++i) 
+        {
+            var c=ca[i].trim();
+            if(0==c.indexOf(name))
+            {
+                return c.substring(name.length,c.length);
+            }
+        }
+        return null;
+    }
     function isNaN(n)
     {
         return n!==n;
@@ -74,13 +95,19 @@
     var audio=document.getElementById('countdown_audio');
     audio.load();
     var times=document.getElementById('times');
+    var times_cookie=getCookie('times');
+    if(null!=times_cookie)
+    {
+        times.value=times_cookie;
+    }
     function add(n)
     {
         var times_value=isNaN(parseInt(times.value))?0:parseInt(times.value);
-        times.value=times_value+n;
+        times.value=Math.max(0,times_value+n);
     }
     function audio_ended()
     {
+        setCookie('times',times.value,1);
         read_button.removeAttribute('disabled');
         // audio.load();
     }
@@ -104,8 +131,8 @@
         }
         audio.addEventListener('ended',audio_ended);
         read_button.disabled='disabled';
-        audio.currentTime=0;
         audio.play();
+        audio.currentTime=0;
     }
     function keydown_function()
     {
