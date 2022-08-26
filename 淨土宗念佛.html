@@ -94,6 +94,10 @@
     var read_button=document.getElementById('read');
     var audio=document.getElementById('countdown_audio');
     audio.load();
+    audio=document.getElementById('finish_audio');
+    audio.load();
+    audio=document.getElementById('finish');
+    audio.load();
     var times=document.getElementById('times');
     var times_cookie=getCookie('times');
     if(null!=times_cookie)
@@ -109,7 +113,7 @@
     {
         setCookie('times',times.value,1);
         read_button.removeAttribute('disabled');
-        // audio.load();
+        audio.load();
     }
     function count_down()
     {
@@ -132,7 +136,6 @@
         audio.addEventListener('ended',audio_ended);
         read_button.disabled='disabled';
         audio.play();
-        audio.currentTime=0;
     }
     function keydown_function()
     {
