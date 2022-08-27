@@ -111,7 +111,7 @@
     }
     function audio_ended()
     {
-        setCookie('times',times.value,1);
+        setCookie('times',times.value,0.5);
         read_button.removeAttribute('disabled');
         audio.load();
     }
