@@ -100,6 +100,7 @@
     audio.load();
     var times=document.getElementById('times');
     var times_cookie=getCookie('times');
+    var read_disabled=false;
     if(null!=times_cookie)
     {
         times.value=times_cookie;
@@ -115,10 +116,17 @@
     {
         setCookie('times',times.value,0.5);
         read_button.removeAttribute('disabled');
+        read_disabled=false;
         audio.load();
     }
     function count_down()
     {
+        if(read_disabled)
+        {
+            return;
+        }
+        read_disabled=true;
+        times.blur();
         var times_value=isNaN(parseInt(times.value))?0:parseInt(times.value);
         if(0>=times.value)
         {
