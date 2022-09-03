@@ -114,10 +114,13 @@
     }
     function audio_ended()
     {
+        audio.load();
+    }
+    function button_enable()
+    {
         setCookie('times',times.value,0.5);
         read_button.removeAttribute('disabled');
         read_disabled=false;
-        audio.load();
     }
     function count_down()
     {
@@ -146,6 +149,7 @@
         audio.addEventListener('ended',audio_ended);
         read_button.disabled='disabled';
         audio.play();
+        setTimeout(button_enable,audio.duration*1000+200);
     }
     function keydown_function()
     {
