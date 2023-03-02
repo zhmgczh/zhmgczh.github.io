@@ -146,14 +146,14 @@
 <div class="shortcodes">
 	<div class="container">
 	<div class="page">
-		<a id="starting_position"></a>
 		<h3 class="typo1" style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai;">學習專頁</h3>
 		<!--button-->
 		<div class="grid_3 grid_4">
 			<!-- <div class="page-header">
 				 <h3>Headings</h3>
 			</div> -->
-			<div class="page-header">
+			<a id="starting_position"></a>
+			<div id="character_table" class="page-header">
 				<button type="button" class="btn btn-lg btn-primary" style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai; float: left;">上一組</button>
 				<button type="button" class="btn btn-lg btn-primary" style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai; float: right;">下一組</button>
 				<br>
@@ -234,10 +234,17 @@
 			</p>
 		</div> -->
 		<script type="text/javascript">
-			document.getElementById('myTabContent').style['height']=document.documentElement.clientHeight;
-			document.getElementById('tab1').style['height']=document.documentElement.clientHeight;
-			document.getElementById('tab2').style['height']=document.documentElement.clientHeight;
-			document.getElementById('tab3').style['height']=document.documentElement.clientHeight;
+			var character_table=document.getElementById('character_table');
+			var myTab=document.getElementById('myTab');
+			var character_table_height=getComputedStyle(character_table)['height'];
+			var character_table_height=character_table_height.substr(0,character_table_height.length-2);
+			var myTab_height=getComputedStyle(myTab)['height'];
+			var myTab_height=myTab_height.substr(0,myTab_height.length-2);
+			var desired_height=document.documentElement.clientHeight-character_table_height-myTab_height;
+			document.getElementById('myTabContent').style['height']=desired_height+'px';
+			document.getElementById('tab1').style['height']=desired_height+'px';
+			document.getElementById('tab2').style['height']=desired_height+'px';
+			document.getElementById('tab3').style['height']=desired_height+'px';
 		</script>
 	</div>
 	<script>
