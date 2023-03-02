@@ -44,10 +44,46 @@
 	}
 </style>
 <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=63ff0f5e7b80fc001a80173c&product=inline-share-buttons&source=platform" async="async"></script>
-<script type="text/javascript" src="final_table.json"></script>
-<script type="text/javascript">alert(dictionary['体']['體']);</script>
 <!-- <script src="https://apis.google.com/js/platform.js"></script> -->
 <script src="js/platform.js"></script>
+<script type="text/javascript" src="final_table.json"></script>
+<script type="text/javascript">
+	function get_request()
+	{
+        var url=location.search;
+        var request=new Object();
+        if(-1!=url.indexOf("?"))
+		{
+            var str=url.substr(1);
+            strs=str.split("&");
+            for(var i=0;i<strs.length;++i)
+			{
+                request[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+            }
+        }
+        return request;
+    }
+	function set_cookie(cname,cvalue,exdays)
+	{
+		d.setTime(new Date().getTime()+(exdays*24*60*60*1000));
+		var expires="expires="+ d.toUTCString();
+		document.cookie=cname+"="+cvalue+";"+expires+";path=/";
+	}
+	function get_cookie(cname)
+	{
+		var name=cname+"=";
+		var ca=document.cookie.split(';');
+		for(var i=0;i<ca.length;++i) 
+		{
+			var c=ca[i].trim();
+			if(0==c.indexOf(name))
+			{
+				return c.substring(name.length,c.length);
+			}
+		}
+		return "";
+	}
+</script>
 <!--end DIY header-->
 </head>
 <body>
@@ -110,14 +146,21 @@
 <div class="shortcodes">
 	<div class="container">
 	<div class="page">
+		<a id="starting_position"></a>
 		<h3 class="typo1" style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai;">學習專頁</h3>
 		<!--button-->
 		<div class="grid_3 grid_4">
-			<div class="page-header">
+			<!-- <div class="page-header">
 				 <h3>Headings</h3>
-			</div>
+			</div> -->
+			<div class="page-header">
+				<button type="button" class="btn btn-lg btn-primary" style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai; float: left;">上一組</button>
+				<button type="button" class="btn btn-lg btn-primary" style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai; float: right;">下一組</button>
+				<br>
+				<h3 style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai; float: center; text-align: center;">台 ← 臺 檯 颱 台</h3>
+		    </div>
 	
-	<div class="bs-example">
+	<!-- <div class="bs-example">
 		<table class="table">
 			<tbody>
 				<tr>
@@ -146,9 +189,62 @@
 				</tr>
 			</tbody>
 		</table>
-		</div>
+		</div> -->
 	</div>
 	<!--buttons-->
+	<ul id="myTab" class="nav nav-tabs" style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai;">
+		<li class="active"><a href="#zhuigensuyuan" data-toggle="tab" style="text-align: left;">追根溯源 → 教育部異體字字典</a></li>
+		<li><a href="#xiandaiguoyu" data-toggle="tab" style="text-align: center;">現代國語 → 國語辭典（萌典）</a></li>
+		<li><a href="#bishunguifan" data-toggle="tab" style="text-align: right;">筆順規範 → 國字標準字體筆順學習網</a></li>
+		<div>縮放：<input id="percent" type="number" value="100" min="1" max="100" minlength="0" maxlength="3">% <button>套用</button></div>
+		<script type="text/javascript">
+			original_length=getComputedStyle(document.getElementById('myTab'))['font-size'];
+			document.getElementById('percent').style['width']=(original_length.substr(0,original_length.length-2))*3+'px';
+		</script>
+		<!-- <li class="dropdown">
+			<a href="#" id="myTabDrop1" class="dropdown-toggle"
+			   data-toggle="dropdown">Java <b class="caret"></b>
+			</a>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+				<li><a href="#jmeter" tabindex="-1" data-toggle="tab">
+						jmeter</a>
+				</li>
+				<li><a href="#ejb" tabindex="-1" data-toggle="tab">
+						ejb</a>
+				</li>
+			</ul>
+		</li> -->
+	</ul>
+	<div id="myTabContent" class="tab-content" style="text-align: center; height: 900px;">
+		<div class="tab-pane fade in active" id="zhuigensuyuan">
+			<!-- <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快速入门并建立自己的网站。菜鸟先飞早入行——学的不仅是技术，更是梦想。</p> -->
+			<iframe id="tab1" seamless src="https://www.moedict.tw/%E8%90%8C" style="width: 100%; height: 900px;transform: scale(1);"></iframe>
+		</div>
+		<div class="tab-pane fade" id="xiandaiguoyu">
+			<!-- <p>iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple
+				TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p> -->
+			<iframe id="tab2" seamless src="https://www.moedict.tw/%E8%90%8C" style="width: 100%; height: 900px; transform: scale(1);"></iframe>
+		</div>
+		<div class="tab-pane fade" id="bishunguifan">
+			<!-- <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p> -->
+			<iframe id="tab3" seamless src="https://stroke-order.learningweb.moe.edu.tw/charactersQueryResult.do?words=%E5%A4%A9&lang=zh_TW&csrfPreventionSalt=null" style="width: 100%; height: 900px; transform: scale(1);"></iframe>
+		</div>
+		<!-- <div class="tab-pane fade" id="ejb">
+			<p>Enterprise Java Beans（EJB）是一个创建高度可扩展性和强大企业级应用程序的开发架构，部署在兼容应用程序服务器（比如 JBOSS、Web Logic 等）的 J2EE 上。
+			</p>
+		</div> -->
+		<script type="text/javascript">
+			document.getElementById('myTabContent').style['height']=document.documentElement.clientHeight;
+			document.getElementById('tab1').style['height']=document.documentElement.clientHeight;
+			document.getElementById('tab2').style['height']=document.documentElement.clientHeight;
+			document.getElementById('tab3').style['height']=document.documentElement.clientHeight;
+		</script>
+	</div>
+	<script>
+		$(function () {
+			$('#myTab li:eq(1) a').tab('show');
+		});
+	</script>
 	<div class="page-header">
 				<h3>Buttons</h3>
 			</div>
@@ -649,5 +745,22 @@
 		</div>
 </div>
 <!--/copy rights-->
+<!--Begin DIY JavaScript-->
+<script type="text/javascript">
+	function jump_to(anchor_id)
+	{
+		var url=location.href;
+		location.href="#"+anchor_id;
+		history.replaceState(null,null,url);
+	}
+	document.onreadystatechange=()=>
+	{
+		if('complete'==document.readyState)
+		{
+			setTimeout(()=>jump_to('starting_position'),200);
+		}
+	};
+</script>
+<!--End DIY JavaScript-->
 </body>
 </html>
