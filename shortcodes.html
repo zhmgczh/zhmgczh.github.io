@@ -83,6 +83,47 @@
 		}
 		return "";
 	}
+	function all_digits(s)
+	{
+		for(var i=0;i<s.length;++i)
+		{
+			if(s.charCodeAt(i)<'0'.charCodeAt(0)||s.charCodeAt(i)>'9'.charCodeAt(0))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	const registerServiceWorker=async()=>
+	{
+		if("serviceWorker" in navigator)
+		{
+			try
+			{
+				const registration=await navigator.serviceWorker.register("/sw.js",
+				{
+					scope:"/",
+				});
+				if(registration.installing)
+				{
+					console.log("正在安裝 Service worker");
+				}
+				else if(registration.waiting)
+				{
+					console.log("已安裝 Service worker installed");
+				}
+				else if(registration.active)
+				{
+					console.log("激活 Service worker");
+				}
+			}
+			catch(error)
+			{
+				console.error(`註冊失敗：${error}`);
+			}
+		}
+	};
+	registerServiceWorker();
 </script>
 <!--end DIY header-->
 </head>
@@ -157,7 +198,11 @@
 				<button type="button" class="btn btn-lg btn-primary" style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai; float: left;">上一組</button>
 				<button type="button" class="btn btn-lg btn-primary" style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai; float: right;">下一組</button>
 				<br>
-				<h3 style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai; float: center; text-align: center;">台 ← 臺 檯 颱 台</h3>
+				<h3 style="font-family: 教育部標準楷書, DFKai-SB, STKaiti, kai; float: center; text-align: center;">
+					<button class="btn btn-lg btn-warning" style="text-align: center;">書籤放下</button>
+					台 ← 臺 檯 颱 台
+					<button class="btn btn-lg btn-warning" style="text-align: center;">回到書籤</button>
+				</h3>
 		    </div>
 	
 	<!-- <div class="bs-example">
@@ -196,10 +241,29 @@
 		<li class="active"><a href="#zhuigensuyuan" data-toggle="tab" style="text-align: left;">追根溯源 → 教育部異體字字典</a></li>
 		<li><a href="#xiandaiguoyu" data-toggle="tab" style="text-align: center;">現代國語 → 國語辭典（萌典）</a></li>
 		<li><a href="#bishunguifan" data-toggle="tab" style="text-align: right;">筆順規範 → 國字標準字體筆順學習網</a></li>
-		<div>縮放：<input id="percent" type="number" value="100" min="1" max="100" minlength="0" maxlength="3">% <button class="btn btn-1 btn-info">套用</button> <button class="btn btn-1 btn-warning">書籤放下</button></div>
+		<div>縮放：<input id="percent" type="number" value="100" min="1" max="100" minlength="0" maxlength="3">% <button onclick="taoyong();" class="btn btn-1 btn-info">套用</button></div>
 		<script type="text/javascript">
 			original_length=getComputedStyle(document.getElementById('myTab'))['font-size'];
 			document.getElementById('percent').style['width']=(original_length.substr(0,original_length.length-2))*3+'px';
+			function taoyong()
+			{
+				var percent_input=document.getElementById('percent');
+				var percent=percent_input.value;
+				if(percent.length<=0||(!all_digits(percent))||percent>100)
+				{
+					percent_input.value=percent=100;
+				}
+				else if(percent<0)
+				{
+					percent_input.value=percent=0;
+				}
+				document.getElementById('tab1').style['transform']='scale('+(percent/100)+')';
+				document.getElementById('tab2').style['transform']='scale('+(percent/100)+')';
+				document.getElementById('tab3').style['transform']='scale('+(percent/100)+')';
+				// document.getElementById('tab1').contentWindow.location.reload();
+				// document.getElementById('tab2').contentWindow.location.reload();
+				// document.getElementById('tab3').contentWindow.location.reload();
+			}
 		</script>
 		<!-- <li class="dropdown">
 			<a href="#" id="myTabDrop1" class="dropdown-toggle"
