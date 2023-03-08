@@ -12,6 +12,10 @@ async function handleRequest(request)
     // Delete headers
     newResponse.headers.delete('Content-Security-Policy');
     newResponse.headers.delete('X-Frame-Options');
+    newResponse.headers.delete('Referer')
+    newResponse.headers.delete('Sec-Fetch-Dest')
+    newResponse.headers.delete('Sec-Fetch-Mode')
+    newResponse.headers.delete('Sec-Fetch-Site')
     // Adjust the value for an existing header
     // newResponse.headers.set('x-header-to-change', 'NewValue');
     return newResponse;
