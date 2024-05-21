@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="keywords" content="淨土宗念佛">
+<meta name="description" content="淨土宗念佛在線修習，提供念佛倒數計數服務。">
+<meta http-equiv='content-language' content='zh-TW'>
+<meta name="google-site-verification" content="V8eLvycwzTe1HcbvKdvVIk2wZUeosaT7HCXcbPB6N0Y" />
+<title>淨土宗念佛在線修習（注音符號標注） - 修佛網──佛法在線修習</title>
+<style>
+    @font-face
+    {
+        font-family:"GB Pinyinok-C";
+        src:url("fonts/GB Pinyinok-C.ttf");
+        font-weight:normal;
+        font-style:normal;
+    }
+    @font-face
+    {
+        font-family:"PMingLiU";
+        src:url("fonts/eduSong_Unicode.ttf");
+        font-weight:normal;
+        font-style:normal;
+    }
+    @font-face
+    {
+        font-family:"edukai-4.0";
+        src:url("fonts/edukai-4.0.ttf");
+        font-weight:normal;
+        font-style:normal;
+    }
+    p
+    {
+        font-family:"PMingLiU";
+        font-size:20px;
+    }
+    h1
+    {
+        font-family:"PMingLiU";
+        font-size:40px;
+    }
+    h2
+    {
+        font-family:"PMingLiU";
+        font-size:20px;
+    }
+    button
+    {
+        font-family:"PMingLiU";
+        font-size:30px;;
+    }
+    rt
+    {
+        font-family:"edukai-4.0";
+    }
+    ruby
+    {
+        font-family:"PMingLiU";
+    }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F0QTMNSQ6P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F0QTMNSQ6P');
+</script>
+</head>
+<body style="background-image: url(imgs/背景.jpg);background-repeat:repeat;position:relative;text-align:center;overflow:hidden">
+<div id="top_content">
+    <h1><ruby>南<rt>ㄋㄚˊ</rt></ruby><ruby>無<rt>ㄇㄛˊ</rt></ruby><ruby>阿<rt>ㄜ</rt></ruby><ruby>彌<rt>ㄇㄧˊ</rt></ruby><ruby>陀<rt>ㄊㄨㄛˊ</rt></ruby><ruby>佛<rt>ㄈㄛˊ</rt></ruby>&nbsp;&nbsp;<ruby>｜<rt>｜</rt></ruby>&nbsp;&nbsp;<ruby>南<rt>ㄋㄚˊ</rt></ruby><ruby>無<rt>ㄇㄛˊ</rt></ruby><ruby>觀<rt>ㄍㄨㄢ</rt></ruby><ruby>世<rt>ㄕˋ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>菩<rt>ㄆㄨˊ</rt></ruby><ruby>薩<rt>ㄙㄚˋ</rt></ruby></h1>
+<button id="minus_500" onclick="add(-500);">-500</button>
+<input type="text" id="times" value="1000" style="text-align:center" oninput="value=value.replace(/[^\d]/g,'')">
+<button id="add_500" onclick="add(500);">+500</button>
+</div>
+<button id="read" onclick="count_down();">念誦一遍</br>（空格、回車或↓）</button>
+<audio id="countdown_audio" preload="auto" src="audios/countdown.mp3"></audio>
+<audio id="finish_chan_audio" preload="auto" src="audios/finish_chan.mp3"></audio>
+<audio id="finish_audio" preload="auto" src="audios/finish.mp3"></audio>
+<script>
+    function setCookie(cname,cvalue,exdays)
+    {
+        var d=new Date();
+        d.setTime(d.getTime()+(exdays*24*60*60*1000));
+        var expires="expires="+d.toGMTString();
+        document.cookie=cname+"="+cvalue+"; "+expires;
+    }
+    function getCookie(cname)
+    {
+        var name=cname+"=";
+        var ca=document.cookie.split(';');
+        for(var i=0;i<ca.length;++i) 
+        {
+            var c=ca[i].trim();
+            if(0==c.indexOf(name))
+            {
+                return c.substring(name.length,c.length);
+            }
+        }
+        return null;
+    }
+    function isNaN(n)
+    {
+        return n!==n;
+    }
+    var read_button=document.getElementById('read');
+    var audio=document.getElementById('countdown_audio');
+    audio.load();
+    audio=document.getElementById('finish_chan_audio');
+    audio.load();
+    audio=document.getElementById('finish_audio');
+    audio.load();
+    var times=document.getElementById('times');
+    var times_cookie=getCookie('times');
+    var read_disabled=false;
+    if(null!=times_cookie)
+    {
+        times.value=times_cookie;
+    }
+    function add(n)
+    {
+        var times_value=isNaN(parseInt(times.value))?0:parseInt(times.value);
+        times.value=Math.max(0,times_value+n);
+        document.getElementById('minus_500').blur();
+        document.getElementById('add_500').blur();
+    }
+    function audio_ended()
+    {
+        audio.load();
+    }
+    function button_enable()
+    {
+        setCookie('times',times.value,0.5);
+        read_button.removeAttribute('disabled');
+        read_disabled=false;
+    }
+    function count_down()
+    {
+        if(read_disabled)
+        {
+            return;
+        }
+        read_disabled=true;
+        times.blur();
+        var times_value=isNaN(parseInt(times.value))?0:parseInt(times.value);
+        if(0>=times.value)
+        {
+            audio=document.getElementById('finish_audio');
+            times.value=0;
+        }
+        else if(1==times.value)
+        {
+            audio=document.getElementById('finish_chan_audio');
+            times.value-=1;
+        }
+        else
+        {
+            audio=document.getElementById('countdown_audio');
+            times.value-=1;
+        }
+        audio.addEventListener('ended',audio_ended);
+        read_button.disabled='disabled';
+        audio.play();
+        setTimeout(button_enable,audio.duration*1000+200);
+    }
+    function keydown_function()
+    {
+        if(event.keyCode==13||event.keyCode==32||event.keyCode==40)
+        {
+            read_button.onclick();
+        }
+    }
+    document.onkeydown=function(){keydown_function()}
+    function get_height()
+    {
+        return self.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
+    }
+    function get_width()
+    {
+        return document.getElementById('top_content').getClientRects()['0']['width'];
+    }
+    read_button.style.width=get_width()+'px';
+    read_button.style.height=(get_height()-document.getElementById('top_content').getClientRects()['0']['height'])+'px';
+</script>
+</body>
+</html>
