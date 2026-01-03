@@ -1,6 +1,6 @@
 # 修佛網──佛法在線修習
 
-（注意，本倉庫和網站的全部內容均採用[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)授權協議發佈，原始碼和網站內容的授權條款分開。再利用、複製和改編前請仔細閱讀[LICENSE](LICENSE.md)檔案，並做好適當標注。）
+（注意，本倉庫和網站的全部內容均採用「創用 CC 姓名標示－非商業性 4.0 國際 授權條款」（[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)）授權。再利用、複製和改編前請仔細閱讀[LICENSE](LICENSE.md)檔案，並做好適當標注。欲知詳情請參見：https://creativecommons.org/licenses/by-nc/4.0/ ）
 
 ## 歡迎來到《修佛網──佛法在線修習》
 
